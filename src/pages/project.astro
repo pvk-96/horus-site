@@ -1,0 +1,235 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Project"
+  description="Learn about the HORUS OS project: its direction, engineering philosophy, and the Arch-based foundation."
+>
+  <div class="ambient-background"></div>
+  <div class="precision-cursor" aria-hidden="true"></div>
+
+  <Header />
+
+  <main>
+    <article class="project-page">
+      <div class="container container--md">
+        <header class="page-header">
+          <h1 class="page-title">About the Project</h1>
+          <p class="page-lead">
+            HORUS OS is an independent Arch-based Linux distribution in development, focused on a considered desktop experience, practical performance, and maintainable engineering.
+          </p>
+        </header>
+
+        <section class="content-section">
+          <h2>Why HORUS OS?</h2>
+          <p>
+            Linux offers an extraordinary range of distributions, but most fall into established categories: minimal and unopinionated, or batteries-included with varying degrees of visual polish. HORUS OS explores a different position: deliberate engineering decisions combined with cohesive visual identity, without sacrificing maintainability or transparency.
+          </p>
+          <p>
+            This is not a claim that the ecosystem is missing something essential. It is an engineering project exploring how system architecture, desktop integration, and visual design can work as parts of a unified whole.
+          </p>
+        </section>
+
+        <section class="content-section">
+          <h2>Arch Linux Foundation</h2>
+          <p>
+            HORUS OS is built on Arch Linux, leveraging its rolling-release model, comprehensive package ecosystem, and transparent build system. This foundation provides:
+          </p>
+          <ul>
+            <li>Access to current upstream software without distribution lag</li>
+            <li>A well-documented, predictable package management system</li>
+            <li>Community-maintained packages covering a wide range of use cases</li>
+            <li>A build system that prioritizes transparency over convenience</li>
+          </ul>
+          <p>
+            The Arch base allows the project to focus on desktop integration, boot workflow, and visual identity rather than maintaining an independent package ecosystem.
+          </p>
+        </section>
+
+        <section class="content-section">
+          <h2>Desktop Direction: Niri + DankMaterialShell</h2>
+          <p>
+            The current desktop direction combines <strong>Niri</strong> (a scrollable-tiling Wayland compositor) with <strong>DankMaterialShell</strong> (a modern desktop shell), creating a window management and interaction model distinct from traditional stacking or tiling approaches.
+          </p>
+          <p>
+            This direction is exploratory. It represents a specific vision for how window management, workspace navigation, and desktop interaction can work together, but it may evolve as implementation reveals practical constraints or better alternatives.
+          </p>
+          <p>
+            The desktop experience is being developed with the same attention to maintainability and cohesion as the underlying system architecture.
+          </p>
+        </section>
+
+        <section class="content-section">
+          <h2>Engineering Philosophy</h2>
+          <p>
+            HORUS OS is developed around several core principles:
+          </p>
+
+          <h3>Deliberate decisions</h3>
+          <p>
+            Every choice—from bootloader to desktop shell—is made with clear reasoning and documented rationale. The goal is not to make the "best" choice in an abstract sense, but to make choices that are understandable, maintainable, and aligned with the project's direction.
+          </p>
+
+          <h3>Maintainable over convenient</h3>
+          <p>
+            Long-term maintainability takes precedence over short-term convenience. This means preferring well-documented, stable components over bleeding-edge alternatives, and avoiding architectural decisions that create hidden complexity or future technical debt.
+          </p>
+
+          <h3>Honest communication</h3>
+          <p>
+            Development status is communicated accurately. Planned work is not presented as completed features. The roadmap reflects actual engineering milestones, not marketing goals.
+          </p>
+
+          <h3>Engineering before appearances</h3>
+          <p>
+            A polished visual identity matters, but only after the underlying system works correctly. Reliable boot behavior, predictable installation, and validated system provisioning come before desktop theming or branding polish.
+          </p>
+        </section>
+
+        <section class="content-section">
+          <h2>System Architecture</h2>
+          <p>
+            The distribution is engineered around several key areas:
+          </p>
+
+          <h3>Boot and Installation</h3>
+          <p>
+            Boot workflow uses <strong>Limine</strong> as the bootloader, providing a modern alternative to GRUB with clearer configuration and better Wayland-era compatibility. The installation process is being developed to be predictable, well-documented, and easy to validate.
+          </p>
+
+          <h3>Visual Identity</h3>
+          <p>
+            The visual identity is architectural and editorial, using restrained gold accents, dark surfaces, and geometric forms. This identity is applied system-wide: boot splash, login screen, desktop, and terminal.
+          </p>
+
+          <h3>Desktop Integration</h3>
+          <p>
+            Desktop integration focuses on making Niri and DankMaterialShell work together cohesively, with consistent keyboard navigation, predictable workspace behavior, and visual continuity across all system components.
+          </p>
+        </section>
+
+        <section class="content-section">
+          <h2>Current Status</h2>
+          <p>
+            HORUS OS is in active development. Core infrastructure milestones are tracked on the <a href="/roadmap/">roadmap page</a>. No public release is currently available, and development progress is communicated honestly rather than optimistically.
+          </p>
+          <p>
+            The project is documented transparently. When implementation reveals that a planned approach does not work, that information is recorded and the approach is revised. The goal is to build a distribution that works correctly, not to meet arbitrary deadlines.
+          </p>
+        </section>
+
+        <section class="content-section">
+          <h2>Who Is This For?</h2>
+          <p>
+            HORUS OS is being developed for users who:
+          </p>
+          <ul>
+            <li>Appreciate deliberate engineering and cohesive design</li>
+            <li>Understand that "in development" means exactly that</li>
+            <li>Value transparency over marketing claims</li>
+            <li>Want a desktop experience that feels intentional rather than assembled</li>
+            <li>Are comfortable with Arch's rolling-release model</li>
+          </ul>
+          <p>
+            This is not a beginner-friendly distribution. It assumes familiarity with Linux system administration, package management, and troubleshooting.
+          </p>
+        </section>
+
+        <section class="content-section">
+          <h2>Get Involved</h2>
+          <p>
+            The project is currently developed independently. As development progresses and the system reaches a testable state, opportunities for community involvement will be documented clearly.
+          </p>
+          <p>
+            For questions or feedback, visit the <a href="/contact/">contact page</a>.
+          </p>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+
+  <script src="../scripts/ambient-background.ts"></script>
+  <script src="../scripts/precision-cursor.ts"></script>
+</BaseLayout>
+
+<style>
+  .project-page {
+    padding-block: var(--space-3xl);
+  }
+
+  .page-header {
+    margin-bottom: var(--space-3xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .page-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-md);
+  }
+
+  .page-lead {
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    max-width: 48rem;
+  }
+
+  .content-section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .content-section h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-lg);
+    color: var(--color-text-primary);
+  }
+
+  .content-section h3 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+    color: var(--color-accent);
+  }
+
+  .content-section p {
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-md);
+  }
+
+  .content-section ul {
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .content-section li {
+    margin-bottom: var(--space-sm);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .content-section a {
+    color: var(--color-accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .content-section a:hover {
+    border-bottom-color: var(--color-accent);
+  }
+
+  .content-section strong {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-semibold);
+  }
+</style>

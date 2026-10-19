@@ -1,0 +1,393 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="HORUS OS">
+  <div class="ambient-background"></div>
+  <div class="precision-cursor" aria-hidden="true"></div>
+
+  <Header />
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            A Linux desktop,<br />built with intent.
+          </h1>
+          <p class="hero-subtitle">
+            HORUS OS is an independent Linux distribution in development, shaped by deliberate design, practical engineering, and a focus on what matters.
+          </p>
+        </div>
+        <div class="hero-visual" id="hero-visual" aria-hidden="true">
+          <canvas id="hero-canvas"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Introduction -->
+    <section class="section intro">
+      <div class="container container--md">
+        <h2 class="section-title">Engineering a cohesive experience</h2>
+        <p class="intro-text">
+          HORUS OS is an Arch-based Linux distribution being developed around a considered approach to the desktop experience. It aims to bring together system engineering, visual identity, and practical design into a distribution that feels intentional rather than assembled.
+        </p>
+        <p class="intro-text">
+          The project is currently in active development, with focus on establishing reliable boot infrastructure, installation workflows, and desktop integration before making public release claims.
+        </p>
+      </div>
+    </section>
+
+    <!-- Principles -->
+    <section class="section principles">
+      <div class="container container--lg">
+        <h2 class="section-title">Design principles</h2>
+        <div class="principles-grid">
+          <div class="principle-card">
+            <h3 class="principle-title">Considered</h3>
+            <p class="principle-text">
+              Every decision, from boot sequence to desktop behavior, is made deliberately and documented clearly.
+            </p>
+          </div>
+          <div class="principle-card">
+            <h3 class="principle-title">Maintainable</h3>
+            <p class="principle-text">
+              Engineering choices prioritize long-term maintainability over short-term convenience.
+            </p>
+          </div>
+          <div class="principle-card">
+            <h3 class="principle-title">Cohesive</h3>
+            <p class="principle-text">
+              Visual identity, system behavior, and technical architecture work as parts of a unified whole.
+            </p>
+          </div>
+          <div class="principle-card">
+            <h3 class="principle-title">Honest</h3>
+            <p class="principle-text">
+              Development progress is communicated accurately. Planned work is not presented as completed features.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Development Status -->
+    <section class="section status">
+      <div class="container container--md">
+        <h2 class="section-title">Current status</h2>
+        <div class="status-content">
+          <p class="status-text">
+            HORUS OS is in active development. Core infrastructure work is underway, focusing on:
+          </p>
+          <ul class="status-list">
+            <li>Arch ISO build pipeline and boot-path validation</li>
+            <li>Graphical live-session integration</li>
+            <li>Installation workflow engineering</li>
+            <li>Limine bootloader integration</li>
+            <li>Visual identity system integration</li>
+            <li>Release qualification and quality assurance</li>
+          </ul>
+          <p class="status-note">
+            No public release is currently available. The roadmap page provides detailed milestone tracking and development history.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta">
+      <div class="container container--sm">
+        <div class="cta-content">
+          <h2 class="cta-title">Follow the progress</h2>
+          <p class="cta-text">
+            Learn more about the project direction, engineering approach, and current development milestones.
+          </p>
+          <div class="cta-buttons">
+            <a href="/project/" class="button button--primary">
+              About the Project
+            </a>
+            <a href="/roadmap/" class="button button--secondary">
+              View Roadmap
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script src="../scripts/hero-animation.ts"></script>
+  <script src="../scripts/ambient-background.ts"></script>
+  <script src="../scripts/precision-cursor.ts"></script>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero {
+    position: relative;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    padding-block: var(--space-3xl);
+    overflow: hidden;
+  }
+
+  .hero .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-content {
+    max-width: 48rem;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .hero-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    margin-bottom: var(--space-lg);
+    color: var(--color-text-primary);
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    max-width: 42rem;
+  }
+
+  .hero-visual {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  #hero-canvas {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Introduction */
+  .intro {
+    background: var(--color-bg-surface);
+  }
+
+  .section-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-xl);
+    text-align: center;
+  }
+
+  .intro-text {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-md);
+  }
+
+  .intro-text:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Principles */
+  .principles-grid {
+    display: grid;
+    gap: var(--space-lg);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .principle-card {
+    padding: var(--space-lg);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--border-radius-md);
+    transition: border-color var(--duration-base) var(--ease-out);
+  }
+
+  .principle-card:hover {
+    border-color: var(--color-border);
+  }
+
+  .principle-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-accent);
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-family-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: var(--font-size-sm);
+  }
+
+  .principle-text {
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Status */
+  .status {
+    background: var(--color-bg-surface);
+  }
+
+  .status-content {
+    padding: var(--space-xl);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    background: var(--color-bg-primary);
+  }
+
+  .status-text {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-md);
+  }
+
+  .status-list {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .status-list li {
+    margin-bottom: var(--space-sm);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .status-note {
+    padding: var(--space-md);
+    background: var(--color-bg-elevated);
+    border-left: 2px solid var(--color-accent);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  /* CTA */
+  .cta-content {
+    text-align: center;
+    padding: var(--space-2xl);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+  }
+
+  .cta-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-text {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xl);
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    border-radius: var(--border-radius-sm);
+    transition: all var(--duration-base) var(--ease-out);
+    border: 1px solid transparent;
+  }
+
+  .button--primary {
+    background: var(--color-accent);
+    color: var(--color-obsidian);
+    border-color: var(--color-accent);
+  }
+
+  .button--primary:hover {
+    background: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .button--secondary {
+    background: transparent;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .button--secondary:hover {
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      min-height: auto;
+    }
+
+    .hero-visual {
+      display: none;
+    }
+
+    .hero-title {
+      font-size: var(--font-size-3xl);
+    }
+  }
+
+  /* Ambient Background */
+  .ambient-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  /* Precision Cursor */
+  .precision-cursor {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--color-accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: var(--z-cursor);
+    transform: translate(-50%, -50%);
+    transition: width 150ms ease, height 150ms ease, opacity 150ms ease;
+    opacity: 0;
+  }
+
+  @media (hover: none) {
+    .precision-cursor {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-visual {
+      opacity: 0.4;
+    }
+
+    .ambient-background {
+      display: none;
+    }
+  }
+</style>

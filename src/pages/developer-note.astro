@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('notes', 'developer-note');
+if (!entry) {
+  throw new Error('Developer note not found');
+}
+const { Content } = await entry.render();
+---
+
+<BaseLayout
+  title="Developer's Note"
+  description="A note from the developer on building HORUS OS with intention and practical engineering."
+>
+  <div class="ambient-background"></div>
+  <div class="precision-cursor" aria-hidden="true"></div>
+
+  <Header />
+
+  <main>
+    <article class="developer-note">
+      <div class="container container--sm">
+        <div class="prose">
+          <Content />
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+
+  <script src="../scripts/ambient-background.ts"></script>
+  <script src="../scripts/precision-cursor.ts"></script>
+</BaseLayout>
+
+<style>
+  .developer-note {
+    padding-block: var(--space-3xl);
+  }
+
+  .prose {
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .prose :global(h1) {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xl);
+    line-height: var(--line-height-tight);
+  }
+
+  .prose :global(h2) {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-lg);
+    line-height: var(--line-height-snug);
+  }
+
+  .prose :global(h3) {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .prose :global(p) {
+    margin-bottom: var(--space-lg);
+  }
+
+  .prose :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .prose :global(strong) {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .prose :global(em) {
+    font-style: italic;
+    color: var(--color-text-secondary);
+  }
+
+  .prose :global(a) {
+    color: var(--color-accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .prose :global(a:hover) {
+    border-bottom-color: var(--color-accent);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-lg);
+  }
+
+  .prose :global(li) {
+    margin-bottom: var(--space-sm);
+  }
+
+  .prose :global(code) {
+    font-family: var(--font-family-mono);
+    font-size: 0.9em;
+    padding: 0.125em 0.375em;
+    background: var(--color-bg-elevated);
+    border-radius: var(--border-radius-sm);
+    color: var(--color-accent);
+  }
+
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid var(--color-border-subtle);
+    margin-block: var(--space-2xl);
+  }
+
+  .prose :global(blockquote) {
+    border-left: 2px solid var(--color-accent);
+    padding-left: var(--space-md);
+    margin-left: 0;
+    margin-bottom: var(--space-lg);
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+</style>

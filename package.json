@@ -1,0 +1,23 @@
+{
+  "name": "horus-os-website",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "animejs": "^3.2.2",
+    "astro": "^5.0.0",
+    "marked": "^18.1.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "@playwright/test": "^1.48.0",
+    "typescript": "^5.6.0"
+  }
+}

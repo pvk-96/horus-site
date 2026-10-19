@@ -1,0 +1,90 @@
+name: HORUS OS
+short_name: HORUS
+version: "1.0.0"
+codename: Falcon
+
+distribution:
+  base: Debian
+  desktop: KDE Plasma
+  display_manager: SDDM
+  installer: Calamares
+  bootloader: GRUB
+  splash: Plymouth
+
+branding:
+  logo: logo.svg
+  symbol: symbol.svg
+
+wallpapers:
+  desktop: wallpaper.png
+  grub: grub-wallpaper.png
+  lockscreen: wallpaper.png
+  sddm: wallpaper.png
+
+fonts:
+  ui:
+    family: Noto Sans
+    regular: NotoSans-Regular.ttf
+    bold: NotoSans-Bold.ttf
+
+  terminal:
+    family: JetBrains Mono
+    regular: JetBrainsMono-Regular.ttf
+    bold: JetBrainsMono-Bold.ttf
+
+cursor:
+  theme: Bibata-Modern-Classic
+
+sound_theme:
+  name: Breeze
+
+fastfetch:
+  logo: symbol.svg
+
+colors:
+  primary: "#D4AF37"
+  primary_dark: "#A67C00"
+
+  accent: "#C89B3C"
+
+  background: "#0B1018"
+  surface: "#111827"
+  surface_alt: "#1E293B"
+
+  text: "#F8FAFC"
+  text_secondary: "#C8CDD4"
+  text_muted: "#94A3B8"
+
+  success: "#3BA55D"
+  warning: "#F0B429"
+  error: "#D14343"
+
+kde:
+  color_scheme: HORUS
+  icon_theme: Breeze
+  cursor_theme: Bibata-Modern-Classic
+
+grub:
+  wallpaper: grub-wallpaper.png
+
+plymouth:
+  background: grub-wallpaper.png
+  animation: orbit
+
+sddm:
+  wallpaper: wallpaper.png
+  avatar: symbol.svg
+
+documentation:
+  welcome_app: HORUS Welcome
+
+website:
+  repository: https://github.com/<your-username>/horus-os
+
+design:
+  philosophy:
+    - Elegant
+    - Minimal
+    - Premium
+    - Developer Focused
+    - Timeless
