@@ -11,10 +11,10 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# environment variables
+# environment variables and local secrets
 .env
-.env.production
-.env.local
+.env.*
+!.env.example
 
 # macOS-specific files
 .DS_Store
@@ -30,6 +30,12 @@ playwright/.cache/
 
 # generated assets cache
 .cache/
+
+# coverage and temporary files
+coverage/
+*.log
+*.tmp
+*.temp
 
 # local development
 .turbo/

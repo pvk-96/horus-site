@@ -1,142 +1,17 @@
 ---
 const currentYear = new Date().getFullYear();
-
-const navigation = [
-  { label: 'Home', href: '/' },
-  { label: 'Project', href: '/project/' },
-  { label: 'Roadmap', href: '/roadmap/' },
-  { label: "Developer's Note", href: '/developer-note/' },
-  { label: 'Contact', href: '/contact/' }
-];
+const navigation = [{ label: 'Project', href: '/project/' }, { label: 'Roadmap', href: '/roadmap/' }, { label: "Developer's Note", href: '/developer-note/' }, { label: 'Contact', href: '/contact/' }];
 ---
-
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <img src="/images/symbol.svg" alt="" width="28" height="28" class="footer-logo" />
-        <p class="footer-tagline">A Linux desktop, built with intent.</p>
-      </div>
-
-      <nav class="footer-nav" aria-label="Footer">
-        <ul class="footer-nav-list">
-          {navigation.map(item => (
-            <li>
-              <a href={item.href} class="footer-link">
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <div class="footer-contact">
-        <h3 class="footer-heading">Connect</h3>
-        <ul class="footer-contact-list">
-          <li>
-            <a href="https://github.com/pvk-96" class="footer-link" target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>
-          </li>
-          <li>
-            <a href="mailto:praneethvarmakopperla@gmail.com" class="footer-link">
-              Email
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p class="footer-copyright">
-        © {currentYear} HORUS OS. An independent project in development.
-      </p>
-    </div>
-  </div>
-</footer>
-
+<footer class="site-footer"><div class="container footer-grid"><div><p class="footer-mark">HORUS OS</p><p class="footer-tagline">A Linux desktop, built with intent.</p></div><p class="footer-note">An independent Arch-based distribution<br />in active development.</p><nav aria-label="Footer"><ul>{navigation.map(item => <li><a href={item.href}>{item.label}</a></li>)}</ul></nav><div><p class="footer-heading">Connect</p><a href="https://github.com/pvk-96" target="_blank" rel="noopener noreferrer">GitHub ↗</a><br /><a href="mailto:praneethvarmakopperla@gmail.com">Email ↗</a></div><p class="footer-copyright">© {currentYear} HORUS OS</p></div></footer>
 <style>
-  .site-footer {
-    margin-top: auto;
-    border-top: 1px solid var(--color-border-subtle);
-    background: var(--color-bg-surface);
-    padding-block: var(--space-2xl);
-  }
-
-  .footer-content {
-    display: grid;
-    gap: var(--space-xl);
-    margin-bottom: var(--space-xl);
-  }
-
-  .footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-
-  .footer-logo {
-    width: 28px;
-    height: 28px;
-    display: block;
-  }
-
-  .footer-tagline {
-    color: var(--color-text-muted);
-    font-size: var(--font-size-sm);
-    margin: 0;
-  }
-
-  .footer-heading {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-sm);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .footer-nav-list,
-  .footer-contact-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-  }
-
-  .footer-link {
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    font-size: var(--font-size-sm);
-    transition: color var(--duration-fast) var(--ease-out);
-  }
-
-  .footer-link:hover {
-    color: var(--color-accent);
-  }
-
-  .footer-bottom {
-    padding-top: var(--space-lg);
-    border-top: 1px solid var(--color-border-subtle);
-  }
-
-  .footer-copyright {
-    color: var(--color-text-muted);
-    font-size: var(--font-size-xs);
-    margin: 0;
-    text-align: center;
-  }
-
-  @media (min-width: 640px) {
-    .footer-content {
-      grid-template-columns: 1fr auto auto;
-      align-items: start;
-    }
-
-    .footer-copyright {
-      text-align: left;
-    }
-  }
+  .site-footer { margin-top: var(--space-3xl); padding-block: 3rem 1.5rem; border-top: 1px solid var(--color-border-subtle); background: rgba(17,24,39,.72); }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr .8fr; gap: 2rem; align-items: start; }
+  .footer-mark { color: var(--color-gold-primary); font-family: var(--font-family-mono); font-size: .78rem; letter-spacing: .12em; }
+  .footer-tagline, .footer-note { margin-top: .75rem; color: var(--color-text-muted); font-size: .8rem; line-height: 1.6; }
+  .footer-grid nav ul { display: grid; gap: .6rem; list-style: none; padding: 0; margin: 0; }
+  .footer-grid a { color: var(--color-text-secondary); font-size: .8rem; transition: color var(--duration-base) var(--ease-out); }
+  .footer-grid a:hover { color: var(--color-gold-primary); }
+  .footer-heading { display: block; margin-bottom: .65rem; color: var(--color-text-primary); font-family: var(--font-family-mono); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; }
+  .footer-copyright { grid-column: 1 / -1; padding-top: 1rem; border-top: 1px solid var(--color-border-subtle); color: var(--color-text-muted); font-family: var(--font-family-mono); font-size: .62rem; }
+  @media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-copyright { grid-column: 1 / -1; } }
 </style>

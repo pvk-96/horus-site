@@ -1,165 +1,29 @@
-// Hero Animation - Geometric orbital composition
+import anime from 'animejs/lib/anime.es.js';
 
-const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
-if (!canvas) {
-  console.warn('Hero canvas not found');
-} else {
-  const ctx = canvas.getContext('2d');
-  if (!ctx) {
-    console.warn('Canvas context not available');
-  } else {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const visual = document.getElementById('hero-visual');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Set canvas size
-    const resizeCanvas = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-      canvas.style.width = `${rect.width}px`;
-      canvas.style.height = `${rect.height}px`;
-    };
+if (visual && !reducedMotion) {
+  const geometry = visual.querySelector('[data-hero-geometry]');
+  const facets = visual.querySelectorAll('[data-hero-facet]');
+  const orbit = visual.querySelector('[data-hero-orbit]');
+  const marker = visual.querySelector('[data-hero-marker]');
+  const motion = anime.timeline({ autoplay: true, loop: true });
 
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+  motion
+    .add({ targets: geometry, rotate: '+=360', duration: 28000, easing: 'linear' }, 0)
+    .add({ targets: orbit, rotate: '-=360', duration: 22000, easing: 'linear' }, 0)
+    .add({ targets: facets, opacity: [0.25, 0.75], duration: 1800, delay: anime.stagger(240), direction: 'alternate', easing: 'easeInOutSine' }, 0)
+    .add({ targets: marker, scale: [0.82, 1.14], opacity: [0.45, 0.9], duration: 1600, direction: 'alternate', easing: 'easeInOutSine' }, 0);
 
-    // Animation state
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetMouseX = 0;
-    let targetMouseY = 0;
+  const onPointerMove = (event: PointerEvent) => {
+    const rect = visual.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    anime.remove(geometry);
+    anime({ targets: geometry, translateX: x * 20, translateY: y * 16, duration: 700, easing: 'easeOutCubic' });
+  };
 
-    // Track mouse movement
-    document.addEventListener('mousemove', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      targetMouseX = (e.clientX - rect.left - rect.width / 2) / rect.width;
-      targetMouseY = (e.clientY - rect.top - rect.height / 2) / rect.height;
-    });
-
-    // Geometric elements
-    interface GeometricRing {
-      radius: number;
-      segments: number;
-      rotation: number;
-      rotationSpeed: number;
-      thickness: number;
-      color: string;
-      opacity: number;
-    }
-
-    const rings: GeometricRing[] = [
-      {
-        radius: 120,
-        segments: 6,
-        rotation: 0,
-        rotationSpeed: 0.0003,
-        thickness: 1.5,
-        color: '#D4AF37',
-        opacity: 0.6
-      },
-      {
-        radius: 180,
-        segments: 8,
-        rotation: Math.PI / 8,
-        rotationSpeed: -0.0002,
-        thickness: 1,
-        color: '#C89B3C',
-        opacity: 0.4
-      },
-      {
-        radius: 240,
-        segments: 12,
-        rotation: 0,
-        rotationSpeed: 0.0001,
-        thickness: 0.8,
-        color: '#A67C00',
-        opacity: 0.3
-      }
-    ];
-
-    const drawRing = (ring: GeometricRing, centerX: number, centerY: number, mouseInfluence: number) => {
-      ctx.save();
-      ctx.translate(centerX, centerY);
-      ctx.rotate(ring.rotation);
-
-      // Draw segments
-      for (let i = 0; i < ring.segments; i++) {
-        const angle = (Math.PI * 2 / ring.segments) * i;
-        const nextAngle = (Math.PI * 2 / ring.segments) * (i + 1);
-
-        const x1 = Math.cos(angle) * ring.radius;
-        const y1 = Math.sin(angle) * ring.radius;
-        const x2 = Math.cos(nextAngle) * ring.radius;
-        const y2 = Math.sin(nextAngle) * ring.radius;
-
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.strokeStyle = ring.color;
-        ctx.globalAlpha = ring.opacity * (1 - mouseInfluence * 0.3);
-        ctx.lineWidth = ring.thickness;
-        ctx.stroke();
-      }
-
-      ctx.restore();
-    };
-
-    // Animation loop
-    const animate = () => {
-      const rect = canvas.getBoundingClientRect();
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      // Smooth mouse interpolation
-      mouseX += (targetMouseX - mouseX) * 0.05;
-      mouseY += (targetMouseY - mouseY) * 0.05;
-
-      const mouseInfluence = Math.sqrt(mouseX * mouseX + mouseY * mouseY);
-
-      // Clear canvas
-      ctx.clearRect(0, 0, rect.width, rect.height);
-
-      // Update and draw rings
-      rings.forEach(ring => {
-        if (!prefersReducedMotion) {
-          ring.rotation += ring.rotationSpeed + mouseInfluence * ring.rotationSpeed * 2;
-        }
-
-        const offsetX = centerX + mouseX * 30;
-        const offsetY = centerY + mouseY * 30;
-
-        drawRing(ring, offsetX, offsetY, mouseInfluence);
-      });
-
-      // Draw center marker
-      ctx.beginPath();
-      ctx.arc(centerX + mouseX * 30, centerY + mouseY * 30, 3, 0, Math.PI * 2);
-      ctx.fillStyle = '#D4AF37';
-      ctx.globalAlpha = 0.8;
-      ctx.fill();
-
-      requestAnimationFrame(animate);
-    };
-
-    // Start animation
-    if (!prefersReducedMotion) {
-      animate();
-    } else {
-      // Static render for reduced motion
-      const rect = canvas.getBoundingClientRect();
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      rings.forEach(ring => {
-        drawRing(ring, centerX, centerY, 0);
-      });
-
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, 3, 0, Math.PI * 2);
-      ctx.fillStyle = '#D4AF37';
-      ctx.globalAlpha = 0.8;
-      ctx.fill();
-    }
-  }
+  visual.addEventListener('pointermove', onPointerMove, { passive: true });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) motion.pause(); else motion.play(); });
 }

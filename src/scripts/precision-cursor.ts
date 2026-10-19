@@ -1,70 +1,33 @@
-// Precision Cursor - Angular geometric cursor
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const isTouch = window.matchMedia('(hover: none)').matches;
+import anime from 'animejs/lib/anime.es.js';
 
-if (!prefersReducedMotion && !isTouch) {
-  const cursor = document.querySelector('.precision-cursor') as HTMLElement | null;
+const cursor = document.querySelector('.precision-cursor');
+const pointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (cursor) {
-    let mouseX = 0;
-    let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-    let isHovering = false;
+if (cursor instanceof HTMLElement && pointerFine && !reducedMotion) {
+  document.documentElement.classList.add('has-precision-cursor');
+  let visible = false;
+  let hovering = false;
 
-    // Track mouse movement
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+  document.addEventListener('pointermove', (event) => {
+    if (!visible) {
+      visible = true;
+      anime({ targets: cursor, opacity: 1, duration: 140, easing: 'linear' });
+    }
+    anime({ targets: cursor, left: event.clientX, top: event.clientY, duration: 180, easing: 'easeOutQuad' });
+  }, { passive: true });
 
-      // Show cursor on first move
-      if (cursor.style.opacity === '0' || cursor.style.opacity === '') {
-        cursor.style.opacity = '1';
-      }
-    });
+  const setHover = (event: PointerEvent) => {
+    const target = event.target;
+    const interactive = target instanceof Element && Boolean(target.closest('a, button, input, textarea, select, [role="button"]'));
+    if (interactive === hovering) return;
+    hovering = interactive;
+    anime({ targets: cursor, scale: interactive ? 1.22 : 1, rotate: interactive ? 45 : 0, duration: 180, easing: 'easeOutCubic' });
+    cursor.classList.toggle('is-hovering', interactive);
+  };
 
-    // Detect hover over interactive elements
-    const updateHoverState = () => {
-      const elementUnderCursor = document.elementFromPoint(mouseX, mouseY);
-      const isInteractive = elementUnderCursor?.closest('a, button, input, textarea, select, [role="button"]');
-
-      if (isInteractive && !isHovering) {
-        isHovering = true;
-        cursor.style.width = '24px';
-        cursor.style.height = '24px';
-        cursor.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
-      } else if (!isInteractive && isHovering) {
-        isHovering = false;
-        cursor.style.width = '8px';
-        cursor.style.height = '8px';
-        cursor.style.backgroundColor = 'transparent';
-      }
-    };
-
-    // Smooth cursor animation
-    const animate = () => {
-      const dx = mouseX - cursorX;
-      const dy = mouseY - cursorY;
-
-      cursorX += dx * 0.15;
-      cursorY += dy * 0.15;
-
-      cursor.style.left = `${cursorX}px`;
-      cursor.style.top = `${cursorY}px`;
-
-      updateHoverState();
-      requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    // Hide cursor when leaving window
-    document.addEventListener('mouseleave', () => {
-      cursor.style.opacity = '0';
-    });
-
-    document.addEventListener('mouseenter', () => {
-      cursor.style.opacity = '1';
-    });
-  }
+  document.addEventListener('pointerover', setHover, { passive: true });
+  document.addEventListener('pointerout', setHover, { passive: true });
+  document.addEventListener('pointerleave', () => anime({ targets: cursor, opacity: 0, duration: 140 }), { passive: true });
+  document.addEventListener('pointerenter', () => anime({ targets: cursor, opacity: 1, duration: 140 }), { passive: true });
 }
